@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "255509657850",
+    "firebase_url": "https://uploadimage-5e187.firebaseio.com",
+    "project_id": "uploadimage-5e187",
+    "storage_bucket": "uploadimage-5e187.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255509657850:android:a921bd395a5d8e33",
+        "android_client_info": {
+          "package_name": "com.edu.kiet.uploadimage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255509657850-8u2ka98a707ji8tp2d74s91rhmvg30su.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edu.kiet.uploadimage",
+            "certificate_hash": "1a691eaa6c50dfc0bc27267be240d059b8f11838"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq7G6tph64ZbJ-zHNPsEbN2Fcy-W9Hflo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255509657850-pvd224020i78fai740iu2hnq75jbeof1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

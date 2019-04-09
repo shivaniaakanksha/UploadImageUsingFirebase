@@ -1,17 +1,16 @@
-package com.edu.kiet.uploadimage;
+public class User {
 
-public class upload {
     private String id;
     private String username;
     private String imageURL;
 
-    public upload(String id, String username, String imageURL) {
+    public User(String id, String username, String imageURL) {
         this.id = id;
         this.username = username;
         this.imageURL = imageURL;
     }
 
-    public upload() {
+    public User() {
     }
 
     public String getId() {

@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private Button choose_image_btn;
     private Button upload_image_btn;
     private ImageView image_view;
+    ProgressDialog pd ;
     //private ProgressBar progressbaruploadimage;
     private TextView usernmae;
     private Uri imageUri;
@@ -69,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
         image_view = findViewById(R.id.image_view);
         //progressbaruploadimage=findViewById(R.id.progressbaruploadimage);
         usernmae = findViewById(R.id.username);
+        pd=new ProgressDialog(MainActivity.this);
+
         databaseReference = FirebaseDatabase.getInstance().getReference("profilepicupload");
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -135,9 +140,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void uplaodImage(){
-//    final ProgressDialog pd= new ProgressDialog(getApplicationContext());
-//    pd.setMessage("Uplaoding");
-//    pd.show();
+     pd.setMessage("Uplaoding...");
+  // pd.setTitle("ProgressDialog");
+        pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        //pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //pd.getMax();
+        pd.getProgress();
+        pd.incrementProgressBy(2);
+        pd.setMax(100);
+
+        pd.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (pd.getProgress() <= pd
+                            .getMax()) {
+                        Thread.sleep(200);
+                        handle.sendMessage(handle.obtainMessage());
+                        if (pd.getProgress() == pd
+                                .getMax()) {
+                            pd.dismiss();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
+
 
     if(imageUri !=null){
         final StorageReference fileReference=storageReference.child(System.currentTimeMillis()+"."+getFileExtension(imageUri));
@@ -162,18 +195,18 @@ public class MainActivity extends AppCompatActivity {
                     HashMap<String,Object> map=new HashMap<>();
                     map.put("ImageURL",mUri);
                     databaseReference.updateChildren(map);
-//                    pd.dismiss();
-
+                   pd.dismiss();
+                    Toast.makeText(getApplicationContext(),"Image uploaded successfully",Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
-//                    pd.dismiss();
+                    pd.dismiss();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
-//                pd.dismiss();
+               pd.dismiss();
             }
         });
     }else{
@@ -200,4 +233,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    Handler handle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            pd.incrementProgressBy(1);
+        }
+    };
 }

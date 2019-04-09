@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
   // pd.setTitle("ProgressDialog");
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         //pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        //pd.getMax();
+        pd.getMax();
         pd.getProgress();
         pd.incrementProgressBy(2);
         pd.setMax(100);
